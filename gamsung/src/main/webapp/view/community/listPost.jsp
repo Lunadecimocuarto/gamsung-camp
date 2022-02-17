@@ -770,7 +770,7 @@
 
 
 
-                          // listHtml += "<a href='#' class='update-comment' id='" + commentNo + "' >&nbsp;댓글수정</a>";
+                          listHtml += "<a href='#' class='update-comment' id='" + commentNo + "' >&nbsp;댓글수정</a>";
                           listHtml += "<a href='#' class='delete-comment' id='" + commentNo + "' >&nbsp;댓글삭제</a>";
 
                         }
@@ -819,7 +819,7 @@
                 }
 
               });//ajax END 비동기 처리
-              // console.log("3", listHtml)
+          
             }
 
           };//button END
@@ -837,7 +837,6 @@
             // var elData = el.data(); <- data로 뽑아오면 {} object형식이다.
             // console.log(elData);
 
-
             var postno = el.data("postno");
             var userid = el.data("userid");
             var val = el.val();
@@ -848,15 +847,15 @@
               alert("글을 입력하세요");
             } else {
 
-              $(this).closest(".comment-form").find("textarea").val("");
+              $(this).closest(".comment-form").find("textarea").val(""); // 댓글등록시 댓글등록후 댓글등록창을 비운다. 부모 객체를 찾아 textarea 태그의 val를 ""로 바꾼다. 
 
               addComment(postno, userid, val);
 
               function addComment(postno, userid, val) {//  const addComment = function (postno, userid, val) {  으로 사용하면 addComment가 밑에 있으므로 위에  addComment(postno,userid,val);가 실행될 수 없다.
 
-                console.log("1::" + postno, typeof postno);
-                console.log("2::" + userid);
-                console.log("2::" + val);
+                console.log("addComment Postno::" + postno, typeof postno);
+                console.log("addComment userid::" + userid);
+                console.log("addComment val::" + val);
 
                 $.ajax({
                   type: "post",
@@ -879,35 +878,44 @@
 
                     $('.commentTotalCount' + postNo).text(commentText);
 
+                    console.log("여기서 e란" + e);
 
-
-                    listComment(e); // 
+                    listComment(e); // 여기서 e는.. 
                     // listComment(postno); // 이렇게 호출했을때 this는 없다. 이벤트가 걸리지않았기때문에 ! 
 
                   },
                   error: function () {
                     console.log("error::::");
+                    
                   }
-                });
-              }
-            }
+                  
+                });//ajax END
+                
+              }//addComment END 
+              
+              
+              
+              
+            }//else END
 
-          };//add commenet END
-
-          function updateClickComment(e) {
+          };//addClickComment END
+          
+          function updateClickComment(e) { //
 
             e.preventDefault();
 
-            var commentno = $(this).attr('id');
+            console.log("e:::::::" , e ); // ,를 사용하면 object 내용을 볼 수 있다. 
+            
+            //var commentno = $(this).attr('id');
 
-            listComment(commentno)
+            //listComment(commentno)
 
+          }//updateClickComment END
 
-          }
 
           function deleteClickComment(e) {
 
-            e.preventDefault();//기본값 방지 a링크 눌렀을때 새로고침이 되지않도록 방지하는 ()
+            e.preventDefault();//기본값 방지 : a링크 눌렀을때 새로고침이 되지않도록 방지하는 ()
 
             //.delete-comment을 click시 이벤트값이 object값이 e로 넘어온다. 
 
