@@ -900,7 +900,7 @@
 
           };//addClickComment END
           
-          function updateClickComment(e) { //
+          function updateClickComment(e) {
 
             e.preventDefault();
 
