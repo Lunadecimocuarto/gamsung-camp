@@ -436,41 +436,47 @@
         // 좋아요 버튼
         $(function () {
 
-
-
           $(document).on("click", ".happy", function (e) {
+        	  
             const postNo = $(e.currentTarget).closest(".post").data("postno");
             const concernType = $(e.currentTarget).data("concerntype");
             const target = $(e.currentTarget);
 
-            console.log(postNo);
-            console.log(concernType);
+            console.log("postNo:::::"+postNo);
+            console.log("concernType:::::"+concernType);
+            console.log(target);
 
             $.ajax({
+            	
               url: "/community/rest/concern/" + postNo + "/" + concernType,
               type: "GET",
               dataType: "json",
-              // data: {
-              //   "postNo" : postNo ,
-              //   "concernType":concernType},
+              
               success: function (data) {
+            	  
                 console.log(data);
                 console.log(e.currentTarget);
                 console.log(target);
+                
                 const concernCount = target.next();
+                
                 if (concernType == "insert") {
                   target.data("concerntype", "delete");
                   target.html("");
                   target.append("<i class='fa fa-fw'></i>");
                   concernCount.text(data);
+                  
                 } else {
+                	
                   target.data("concerntype", "insert");
                   target.html("");
                   target.append("<i class='fa fa-fw'></i>");
                   concernCount.text(data);
                 }
-              },
+              }, //success end
+              
               error: function (request, status, error) {
+            	  
                 alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
               }
             });
@@ -482,12 +488,13 @@
 
         //  무한 스크롤...
         $(function () {
+
           var userId = $("body").data("userid");
 
           let isFlag = false;
           let ajaxToggle = false;
+          
           const pageEl = $("#currentPage");
-
 
           $(window).scroll(function () {
             let currentPage = pageEl.val();
@@ -507,27 +514,7 @@
                   if (list.length == 0) {
                     isFlag = true;
                   }
-                  // const imgUrl = "/uploadfiles/community/img/";
-                  // // ui
-                  // const appendElement = $("div.col-sm-8.col-sm-offset-1");
-
-                  // const postList = $(".format .post").clone();
-                  // const u_d_box = $(".post-updatedelete").clone();
-                  // const postHeader = postList.find(".post-header"); // append
-
-                  // const postNo = postList.find(".post-number");
-                  // const postType = postList.find(".post-postType");
-                  // const postWriter = postList.find(".post-writer");
-                  // const postRegDate = postList.find(".post-regDate");
-                  // const postTitle = postList.find(".post-title");
-                  // const postTitle = postList.find(".post-title");
-                  // const postImgBox = postList.find(".post-thumbnail");
-                  // const postContent = postList.find(".post-content");
-                  // const postHashtag = postList.find(".hashtag");
-                  // const postConcern = postList.find(".post-concern");
-                  // const postrReply  = postList.find(".reply"); // val(postNo)
-                  // const postrComment  = postList.find(".post-comment-count");
-                  // const commentsBox = postList.find(".comments "); // class add ;
+                  
                   console.log(list);
 
                   list.forEach((el, index) => {
@@ -601,49 +588,6 @@
                     appendElement.append(postList);
                   })
 
-
-
-
-
-
-
-
-
-                  // console.log(li);
-                  // console.log(answer);
-                  // qnas.forEach( (qna, index) => {
-                  // // for(let index = 0 ; index < qnas.length ; index++ ){
-                  //   const layoutLeft = $(".qna-left");
-                  //   const layoutRight = $(".qna-right");
-                  //   let li = $(".format #accordion").clone();
-                  //   let answer = $(".format .answer").clone();
-                  //   // const qna = qnas[index];
-                  //   console.log(index);
-                  //   const title = li.find("a.collapsed");// 제목
-                  //   const collapse = li.find("div.collapse");
-                  //   const content = li.find("div.question"); // 내용
-                  //   const answerContent = answer.find("span"); // 답변 내용
-
-                  //   title.attr("href" , "#support"+qna.qnaNo).text(qna.questionTitle);
-                  //   collapse.attr("id" , "support"+qna.qnaNo);
-                  //   content.text(qna.questionContent);
-
-                  //   console.log(qna.answerContent);
-                  //   if(qna.answerContent != null){
-                  //     title.append("<div class='check'>확인</div>");
-                  //     answerContent.text(qna.answerContent);
-                  //     content.append(answer);
-                  //   }else{
-                  //     title.append("<div class='unCheck'>미답변</div>");
-
-                  //   }
-
-                  //   if(index % 2 == 0 ){
-                  //     layoutLeft.append(li);
-                  //   }else{
-                  //     layoutRight.append(li);
-                  //   }
-                  // });
                 }
               }).done(function () {
                 ajaxToggle = false;
