@@ -331,15 +331,16 @@ border-radius: 9px;
           var hashtags = $('#allhashtag').val().split('#');
 
 
-
           $("textarea[name='postContent']").val($("textarea[name='postContent']").val().replace(/\n/g, "<br>"));
-
-          console.log($("textarea[name='postContent']").val());
           
+          //textarea는 한줄로 나온다. /  / 사이의 문자를 전체 탐색 (g) 한다.
+          
+          console.log($("textarea[name='postContent']").val());
 
           hashtags.shift(); // 첫번째 배열 삭제 
 
           console.log($('#allhashtag').val());
+          
           console.log(hashtags);
 
           if (postTitle == '') {
@@ -367,7 +368,15 @@ border-radius: 9px;
           }
 
 
-          hashtags.forEach((el, index) => { /* array item 하나씩, 그리고 그것의 index */
+          hashtags.forEach((el, index) => {
+          /*  강아지, 0
+        	  고양이, 1
+        	  참새, 2
+        	  토끼, 3
+        	  노루, 4 */        	  
+       	  
+        	  /* el은 for문 한번 돌때의 첫번째 값, 그리고 index는 그것에 순번, array item 하나씩, 그리고 그것의 index */
+          }
 
             var i = index + 1;  /* 0+1=1 , 1+1=2 , 2+1=3 .... 여기서 var는 hashtag앞에 붙일 숫자.  */
 
@@ -384,6 +393,8 @@ border-radius: 9px;
 
         };
 
+        
+        
         $('#filebutton').click(function () {
           $('#file').click();
         });

@@ -211,6 +211,7 @@ public Map<String, Object> listPost(@ModelAttribute("search") Search search,
 }
 
 @RequestMapping(value = "rest/concern/{postNo}/{concernType}")
+
 public int AddConcern(@PathVariable("postNo") int postNo ,@PathVariable("concernType") String concernType , HttpSession session) throws Exception {
 
 	System.out.println("postNo======> "+postNo+"\n concernType======>"+concernType);
@@ -227,6 +228,7 @@ public int AddConcern(@PathVariable("postNo") int postNo ,@PathVariable("concern
 //	System.out.println("CONCERN:::::" + CONCERN);
 	
 	communityService.updateConcern(postNo, userId, concernType);
+	
 	return communityService.totalConcern(postNo);
 }
   

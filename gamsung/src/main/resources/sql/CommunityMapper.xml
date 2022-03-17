@@ -60,11 +60,12 @@
     </insert>	 	 
  	 
 	<!-- 추천 등록 중복된 값이 있을 경우 INSERT되지않는다. -->
+	<!-- SELECT절 값이 있을 경우 FLASE 없으면 TRUE를 반환한다.-->
   	<insert    id="addConcern"      parameterType="hashmap" >
     INSERT INTO POST_CONCERN (post_no, user_id)
 	SELECT #{postNo}, #{userId}
 	FROM DUAL
-	WHERE NOT EXISTS (SELECT post_no, user_id 
+	WHERE NOT EXISTS (SELECT 'x'
 					  FROM POST_CONCERN
 					  WHERE post_no = #{postNo}
 					  AND user_id = #{userId} )                                   
